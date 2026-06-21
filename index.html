@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>MISE - MTG Creator</title>
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="card-frames.css">
+<meta name="theme-color" content="#000000">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="MISE">
+<link rel="apple-touch-icon" href="assets/mise-logo.png">
+<link rel="icon" href="assets/mise-logo.png">
+</head>
+<body>
+<div id="home-screen" class="screen active">
+<div class="home-container">
+<div class="logo-container"><img src="assets/mise-logo.png" alt="MISE" class="logo"><div class="app-title">MTG CREATOR</div></div>
+<div class="lang-selector"><select id="lang-select"><option value="it">Italiano</option><option value="en">English</option><option value="fr">Francais</option><option value="de">Deutsch</option><option value="es">Espanol</option></select></div>
+<div class="main-buttons">
+<button id="btn-create" class="btn-primary" data-i18n="createCard">CREA CARTA</button>
+<button id="btn-collection" class="btn-primary" data-i18n="collection">COLLEZIONE</button>
+</div></div></div>
+<div id="type-select-screen" class="screen">
+<div class="screen-header"><button class="btn-back" id="btn-back-home">&#8592;</button><h2 data-i18n="chooseLayout">SCEGLI TIPO DI CARTA</h2></div>
+<div class="card-type-grid">
+<button class="card-type-btn" data-layout="single">Carta Singola</button>
+<button class="card-type-btn" data-layout="transform">Doppia Faccia (Transform)</button>
+<button class="card-type-btn" data-layout="mdfc">Doppia Faccia Modale (MDFC)</button>
+<button class="card-type-btn" data-layout="split">Split (Apocalypse)</button>
+<button class="card-type-btn" data-layout="fuse">Split con Fuse</button>
+<button class="card-type-btn" data-layout="aftermath">Aftermath</button>
+<button class="card-type-btn" data-layout="flip">Flip (Kamigawa)</button>
+<button class="card-type-btn" data-layout="battle">Battaglia</button>
+<button class="card-type-btn" data-layout="adventure">Avventura</button>
+<button class="card-type-btn" data-layout="prepared">Prepared</button>
+<button class="card-type-btn" data-layout="levelup">Level Up (Livelli)</button>
+<button class="card-type-btn" data-layout="token">Token</button>
+</div></div>
+<div id="editor-screen" class="screen">
+<div class="screen-header"><button class="btn-back" id="btn-back-type">&#8592;</button><h2>MODIFICA CARTA</h2><button class="btn-save" id="btn-save-card">SALVA</button><button class="btn-export" id="btn-export-card" title="Scarica PNG">&#11015;</button><button class="btn-export" id="btn-copy-card" title="Copia">&#128203;</button></div>
+<div class="editor-container">
+<div class="card-preview-panel">
+<button class="btn-flip-card" id="btn-flip" title="Gira">&#x21BB;</button>
+<div class="card-preview" id="card-preview"><div class="card-frame" id="card-frame">
+<div class="card-header"><span class="card-name" id="preview-name"></span><span class="card-mana" id="preview-mana"></span></div>
+<div class="card-art" id="preview-art"><div class="art-placeholder">Clicca per immagine</div></div>
+<div class="card-type-line"><span id="preview-type"></span><span class="card-set-symbol" id="preview-set-symbol"></span></div>
+<div class="card-text-box"><div class="card-rules" id="preview-rules"></div><div class="card-flavor" id="preview-flavor"></div></div>
+<div class="card-footer"><span class="card-artist" id="preview-artist"></span><span class="card-pt" id="preview-pt"></span></div>
+</div></div></div>
+<div class="editor-fields-panel" id="editor-fields">
+<div class="face-tabs hidden" id="face-tabs"><button class="face-tab active" data-face="A">Faccia A</button><button class="face-tab" data-face="B">Faccia B</button></div>
+<div class="field-group"><label>Bordo Carta</label><select id="field-border"><option value="black">Nero</option><option value="white">Bianco</option><option value="silver">Argento</option><option value="gold">Oro</option></select></div>
+<div class="field-group hidden" id="gold-options"><label>Firma in oro</label><canvas id="gold-signature-canvas" width="280" height="50"></canvas><button class="btn-small" id="btn-gold-sign-clear">Pulisci</button><label>Retro</label><select id="field-back-type"><option value="normal">Normale</option><option value="world">World Championship</option></select><input type="text" id="field-event-name" class="hidden" placeholder="Nome evento"></div>
+<div class="field-group"><label>Nome Carta</label><input type="text" id="field-name" maxlength="60"><span class="char-count" id="name-char-count">0/60</span></div>
+<div class="field-group"><label>Costo di Mana</label><div class="mana-tabs"><button class="mana-tab active" data-tab="basic">Base</button><button class="mana-tab" data-tab="generic">Generico</button><button class="mana-tab" data-tab="hybrid">Ibrido</button><button class="mana-tab" data-tab="phyrexian">Phyrexiano</button></div><div class="mana-selector" id="mana-selector"></div><div class="mana-chosen" id="mana-chosen"></div></div>
+<div class="field-group"><label>Supertipo</label><input type="text" id="field-supertype" class="autocomplete-field"><div class="autocomplete-list" id="supertype-suggestions"></div></div>
+<div class="field-group"><label>Tipo</label><input type="text" id="field-type" class="autocomplete-field"><div class="autocomplete-list" id="type-suggestions"></div></div>
+<div class="field-group"><label>Sottotipo</label><input type="text" id="field-subtype" class="autocomplete-field"><div class="autocomplete-list" id="subtype-suggestions"></div></div>
+<div class="field-group"><label>Testo Regole</label><div class="symbol-insert-bar" id="symbol-bar"></div><textarea id="field-rules" class="autocomplete-field" rows="4"></textarea><div class="autocomplete-list" id="rules-suggestions"></div></div>
+<div class="field-group"><label>Testo di Colore</label><textarea id="field-flavor" rows="2"></textarea></div>
+<div class="field-group" id="pt-group"><label>Forza / Costituzione</label><div class="pt-inputs"><input type="text" id="field-power" placeholder="F" class="pt-input"><span>/</span><input type="text" id="field-toughness" placeholder="C" class="pt-input"><button class="btn-small btn-inf" id="btn-pt-inf">&#8734;</button></div></div>
+<div class="field-group hidden" id="loyalty-group"><label>Punti Fedelta</label><div class="pt-inputs"><input type="text" id="field-loyalty" placeholder="0-10000"><button class="btn-small btn-inf" id="btn-loyalty-inf">&#8734;</button></div></div>
+<div class="field-group hidden" id="levelup-group"><label>Livelli</label><div id="level-sections"></div><button class="btn-small" id="btn-add-level">+ Livello</button></div>
+<div class="field-group"><label>Simbolo Espansione</label><div class="set-symbol-options"><button class="btn-small" id="btn-set-library">Libreria</button><button class="btn-small" id="btn-set-upload">Carica</button><button class="btn-small" id="btn-set-draw">Disegna</button></div><div class="set-preview" id="set-preview"></div><select id="field-rarity"><option value="common">Comune</option><option value="uncommon">Non Comune</option><option value="rare">Rara</option><option value="mythic">Mitica</option></select></div>
+<div class="field-group"><label>Artista</label><input type="text" id="field-artist" placeholder="Nome artista"><button class="btn-small" id="btn-artist-sign">Firma Digitale</button></div>
+<div class="field-group hidden" id="adventure-group"><label>Avventura</label><input type="text" id="field-adv-name" placeholder="Nome"><textarea id="field-adv-rules" rows="2" placeholder="Testo"></textarea></div>
+<div class="field-group hidden" id="prepared-group"><label>Magia Preparata</label><input type="text" id="field-prep-name" placeholder="Nome"><textarea id="field-prep-rules" rows="2" placeholder="Testo"></textarea></div>
+</div></div></div>
+<div id="collection-screen" class="screen">
+<div class="screen-header"><button class="btn-back" id="btn-back-home2">&#8592;</button><h2>COLLEZIONE</h2></div>
+<div class="collection-controls"><input type="text" id="collection-search" placeholder="Cerca..."><select id="collection-sort"><option value="alpha">Alfabetico</option><option value="color">Colore</option><option value="type">Tipo</option><option value="set">Espansione</option><option value="date">Data</option></select></div>
+<div class="collection-grid" id="collection-grid"></div></div>
+<div id="image-modal" class="modal hidden"><div class="modal-content"><button class="modal-close" id="modal-close-img">&times;</button><h3>Scegli Immagine</h3><div class="image-options"><button id="img-search" class="btn-primary btn-modal">Cerca da Internet</button><button id="img-upload" class="btn-primary btn-modal">Carica da Dispositivo</button><button id="img-url" class="btn-primary btn-modal">Incolla URL</button><p class="paste-hint">Oppure incolla (Ctrl+V)</p></div><div class="image-search-box hidden" id="image-search-box"><input type="text" id="img-search-query" placeholder="Cerca..."><button id="img-search-go" class="btn-small">Cerca</button></div><div class="image-url-box hidden" id="image-url-box"><input type="text" id="img-url-input" placeholder="https://..."><button id="img-url-go" class="btn-small">OK</button></div><input type="file" id="img-file-input" accept="image/*" class="hidden"></div></div>
+<div id="set-modal" class="modal hidden"><div class="modal-content modal-large"><button class="modal-close" id="modal-close-set">&times;</button><h3>Simboli Espansione</h3><input type="text" id="set-search" placeholder="Cerca set..."><div class="set-grid" id="set-grid"></div></div></div>
+<div id="draw-modal" class="modal hidden"><div class="modal-content"><button class="modal-close" id="modal-close-draw">&times;</button><h3>Disegna Simbolo</h3><canvas id="pixel-canvas" width="200" height="200"></canvas><div class="draw-tools"><input type="color" id="draw-color" value="#000000"><button id="draw-pencil" class="tool-active">P</button><button id="draw-eraser">E</button><button id="draw-clear" class="btn-small">Pulisci</button><button id="draw-confirm" class="btn-primary btn-modal">Conferma</button></div></div></div>
+<div id="sign-modal" class="modal hidden"><div class="modal-content"><button class="modal-close" id="modal-close-sign">&times;</button><h3>Firma Digitale</h3><canvas id="sign-canvas" width="360" height="80"></canvas><div class="draw-tools"><button id="sign-clear" class="btn-small">Pulisci</button><button id="sign-confirm" class="btn-primary btn-modal">Conferma</button></div></div></div>
+<script src="i18n.js"></script>
+<script src="data/mana-symbols.js"></script>
+<script src="data/types.js"></script>
+<script src="data/keywords.js"></script>
+<script src="data/sets.js"></script>
+<script src="app.js"></script>
+<script src="card-editor.js"></script>
+<script src="collection.js"></script>
+<script>if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js").catch(function(){});}</script>
+</body></html>

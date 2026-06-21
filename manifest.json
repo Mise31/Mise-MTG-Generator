@@ -1,0 +1,1 @@
+﻿{"name":"MISE - MTG Creator","short_name":"MISE","description":"Crea carte Magic personalizzate","start_url":"./index.html","scope":"./","display":"standalone","background_color":"#000000","theme_color":"#000000","orientation":"any","icons":[{"src":"assets/mise-logo.png","sizes":"192x192","type":"image/png","purpose":"any maskable"}]}
